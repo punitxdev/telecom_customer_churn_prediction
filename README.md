@@ -12,14 +12,6 @@ Customer Behaviour Analyzer is an advanced machine learning web application desi
 - **Premium Web Interface:** A highly responsive, modern UI built with glassmorphism design principles, dynamic background animations, and real-time visual feedback.
 - **End-to-End Pipeline:** Includes the complete data preprocessing, feature engineering, model training, and a Flask-based deployment server.
 
-## Demo
-
-**Customer Profile Input**  
-![Input Form](input_form.png)
-
-**Prediction Result & Risk Analysis**  
-![Prediction Result](prediction.png)
-
 ## Dataset
 The model was trained on the Telco Customer Churn dataset.
 Dataset Link: [Kaggle - Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
