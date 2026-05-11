@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecom Churn Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Load FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-chart-pie"></i>
+                <h1>Customer Behaviour Analyzer</h1>
+            </div>
+            <p>AI-Powered Customer Retention Analytics</p>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section glass-panel">
+                <h2><i class="fa-solid fa-user-pen"></i> Customer Profile</h2>
+                <form id="prediction-form">
+                    
+                    <div class="form-grid">
+                        <!-- Demographics -->
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select name="gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Senior Citizen</label>
+                            <select name="SeniorCitizen" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Partner</label>
+                            <select name="Partner" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Dependents</label>
+                            <select name="Dependents" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+
+                        <!-- Account Details -->
+                        <div class="form-group">
+                            <label>Tenure (Months)</label>
+                            <input type="number" name="tenure" min="0" max="72" value="12" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contract Type</label>
+                            <select name="Contract" required>
+                                <option value="" disabled selected>Select Contract</option>
+                                <option value="Month-to-month">Month-to-month</option>
+                                <option value="One year">One year</option>
+                                <option value="Two year">Two year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <select name="PaymentMethod" required>
+                                <option value="" disabled selected>Select Payment Method</option>
+                                <option value="Electronic check">Electronic check</option>
+                                <option value="Mailed check">Mailed check</option>
+                                <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                                <option value="Credit card (automatic)">Credit card (automatic)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Paperless Billing</label>
+                            <select name="PaperlessBilling" required>
+                                <option value="1" selected>Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Charges ($)</label>
+                            <input type="number" step="0.01" name="MonthlyCharges" value="50.00" min="18.25" max="118.75" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Charges ($)</label>
+                            <input type="number" step="0.01" name="TotalCharges" value="600.00" min="18.8" max="8684.8" required>
+                        </div>
+
+                        <!-- Services -->
+                        <div class="form-group">
+                            <label>Phone Service</label>
+                            <select name="PhoneService" required>
+                                <option value="1" selected>Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Multiple Lines</label>
+                            <select name="MultipleLines" required>
+                                <option value="No" selected>No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No phone service">No phone service</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Internet Service</label>
+                            <select name="InternetService" required>
+                                <option value="Fiber optic" selected>Fiber optic</option>
+                                <option value="DSL">DSL</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Online Security</label>
+                            <select name="OnlineSecurity" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Online Backup</label>
+                            <select name="OnlineBackup" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Device Protection</label>
+                            <select name="DeviceProtection" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tech Support</label>
+                            <select name="TechSupport" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Streaming TV</label>
+                            <select name="StreamingTV" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Streaming Movies</label>
+                            <select name="StreamingMovies" required>
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span>Analyze Risk</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="result-section glass-panel">
+                <h2><i class="fa-solid fa-square-poll-vertical"></i> Prediction Result</h2>
+                
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Analyzing customer data...</p>
+                </div>
+
+                <div id="result-display" class="hidden">
+                    <div class="progress-circle-wrapper">
+                        <svg class="progress-circle" viewBox="0 0 100 100">
+                            <circle class="bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="percentage-display">
+                            <div class="value-text"><span id="prob-value">0</span>%</div>
+                            <i id="meter-icon" class="fa-solid fa-circle-check" style="font-size: 1.25rem; margin-top: -5px;"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="status-badge" id="risk-badge">
+                        <i id="risk-icon" class="fa-solid fa-circle-check"></i>
+                        <span id="category-text">Low Churn Risk</span>
+                    </div>
+
+                    <div class="metrics">
+                        <div class="metric-box">
+                            <span class="label">Model Confidence</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="label">Action Required</span>
+                            <span class="value" id="action-text">None</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="initial-state">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <p>Fill out the customer profile and click "Analyze Risk" to see the prediction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Section -->
+        <div class="about-section glass-panel">
+            <h2><i class="fa-solid fa-circle-info"></i> About This Project</h2>
+            <div class="about-content">
+                <p>
+                    <strong>Customer Behaviour Analyzer</strong> is an advanced machine learning application designed to help telecommunications companies proactively identify customers at risk of leaving. 
+                </p>
+                <p>
+                    Leveraging a robust <strong>XGBoost classifier</strong>, this tool analyzes 31 distinct customer features—spanning demographic data, account information, and subscribed services—to compute a precise churn probability score. Based on this score, the system categorizes customers into three risk tiers to help prioritize retention efforts:
+                </p>
+                <ul class="risk-tiers-list">
+                    <li><span class="status-badge low inline-badge"><i class="fa-solid fa-circle-check"></i> Low Risk (&lt; 30%)</span>: Stable account, no immediate action required.</li>
+                    <li><span class="status-badge medium inline-badge"><i class="fa-solid fa-circle-exclamation"></i> Moderate Risk (30% - 69%)</span>: Warning stage. Customer behavior indicates they may leave. Consider offering tailored incentives.</li>
+                    <li><span class="status-badge high inline-badge"><i class="fa-solid fa-triangle-exclamation"></i> High Risk (&ge; 70%)</span>: Critical risk. High likelihood of churning. Requires immediate contact and targeted retention strategies.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Show loading state
+            document.getElementById('initial-state').classList.add('hidden');
+            document.getElementById('result-display').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            
+            // Disable button
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.classList.add('loading');
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if(result.success) {
+                    setTimeout(() => {
+                        displayResult(result);
+                    }, 800); // Artificial delay for animation
+                } else {
+                    alert('Error making prediction: ' + result.error);
+                    resetUI();
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Connection error.');
+                resetUI();
+            }
+        });
+
+        function displayResult(result) {
+            document.getElementById('loading').classList.add('hidden');
+            const resultDisplay = document.getElementById('result-display');
+            resultDisplay.classList.remove('hidden');
+            
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = false;
+            btn.classList.remove('loading');
+
+            const prob = result.probability;
+            const riskLevel = result.risk_level;
+            
+            // Update Text
+            document.getElementById('category-text').innerText = result.category;
+            
+            // Animate number
+            animateValue("prob-value", 0, prob, 1000);
+            
+            // Update styling based on risk
+            const badge = document.getElementById('risk-badge');
+            const icon = document.getElementById('risk-icon');
+            const progressCircle = document.querySelector('.progress');
+            const actionText = document.getElementById('action-text');
+            
+            badge.className = `status-badge ${riskLevel}`;
+            
+            // Reset stroke array
+            const circumference = 2 * Math.PI * 45;
+            progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+            const offset = circumference - (prob / 100) * circumference;
+            
+            // Animate circle
+            setTimeout(() => {
+                progressCircle.style.strokeDashoffset = offset;
+            }, 50);
+
+            const meterIcon = document.getElementById('meter-icon');
+
+            if(riskLevel === 'high') {
+                icon.className = 'fa-solid fa-triangle-exclamation';
+                meterIcon.className = 'fa-solid fa-triangle-exclamation';
+                meterIcon.style.color = 'var(--danger-color)';
+                progressCircle.style.stroke = 'var(--danger-color)';
+                actionText.innerText = 'Immediate Contact';
+            } else if (riskLevel === 'medium') {
+                icon.className = 'fa-solid fa-circle-exclamation';
+                meterIcon.className = 'fa-solid fa-circle-exclamation';
+                meterIcon.style.color = 'var(--warning-color)';
+                progressCircle.style.stroke = 'var(--warning-color)';
+                actionText.innerText = 'Offer Incentives';
+            } else {
+                icon.className = 'fa-solid fa-circle-check';
+                meterIcon.className = 'fa-solid fa-circle-check';
+                meterIcon.style.color = 'var(--success-color)';
+                progressCircle.style.stroke = 'var(--success-color)';
+                actionText.innerText = 'None';
+            }
+        }
+        
+        function resetUI() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('initial-state').classList.remove('hidden');
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = false;
+            btn.classList.remove('loading');
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = (progress * (end - start) + start).toFixed(1);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>
