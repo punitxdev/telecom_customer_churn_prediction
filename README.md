@@ -229,10 +229,8 @@ Example response:
 telecom_customer_churn_prediction/
 |-- app.py
 |-- churning_customer.pkl
-|-- extract.py
 |-- README.md
 |-- telecom.ipynb
-|-- telecom_customer.csv
 |-- static/
 |   `-- css/
 |       `-- style.css
