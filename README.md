@@ -68,7 +68,7 @@ The application does not use `customerID` for prediction because it is only an i
 
 ## Machine Learning Workflow
 
-The model development workflow is documented in `telecom.ipynb` and partially exported in `extract.py`.
+The model development workflow is documented in `telecom.ipynb`.
 
 The workflow includes:
 
@@ -321,14 +321,6 @@ To retrain or inspect the model development process:
 4. Export the trained model with `joblib.dump(model, "churning_customer.pkl")`.
 
 Important: The deployed Flask application expects the same feature names and preprocessing logic used during training. If the notebook preprocessing changes, update `FEATURE_NAMES` and the transformation logic in `app.py` accordingly.
-
-## Notes and Limitations
-
-- The model is trained on a public historical dataset and should be validated before use in a real business environment.
-- The prediction output is a probability estimate, not a guaranteed customer outcome.
-- The application currently uses manually coded preprocessing in `app.py`. For production use, consider saving a complete preprocessing and model pipeline together.
-- No authentication, database storage, or audit logging is included.
-- Model performance should be monitored and retrained if customer behavior or business conditions change.
 
 ## Technology Stack
 
